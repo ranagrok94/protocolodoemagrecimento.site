@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="none">
+  <link rel="shortcut icon" href="favicon.png">
+  <title>Proto</title>
+
+  <!-- GTM START CODE -->
+
+<script>
+// Load GTM for everyone except PageSpeed Insight Tool 😉
+if(navigator.userAgent.indexOf("Chrome-Lighthouse") == -1) { 
+
+// Google Tag Manager as Payload for all 3rd-party JS
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WBQN47T');
+// please replace GTM-WBQN47T with own GTM ID
+ }
+</script>
+
+<!-- END GTM CODE -->
+
+  <style>* {
+      margin: 0;
+      padding: 0;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cor-de-background: #000813;
+      --cor-dos-botoes: #0df28f;
+    }
+
+    .quiz {
+      background: var(--cor-de-background);
+      width: 100%;
+      font-family: Gotham Rounded;
+      src: url("font.otf") format("opentype");
+      min-height: 100vh;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .quiz span {
+      position: absolute;
+      bottom: .5rem;
+      left: 50%;
+      -webkit-transform: translateX(-50%) translateY(-1.5rem);
+      transform: translateX(-50%) translateY(-1.5rem);
+      display: inline-block;
+      text-align: center;
+      font-size: .8rem;
+      color: #abafb6;
+    }
+
+    .quiz .content-wrapper {
+      position: relative;
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      color: #fff;
+      min-height: 600px;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 4rem 2rem;
+    }
+
+    .quiz .content-wrapper .backlink {
+      position: absolute;
+      right: 4rem;
+      top: -2rem;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 1rem;
+      background: #e12b2b;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-transition: .2s;
+      transition: .2s;
+    }
+
+    .quiz .content-wrapper .backlink:hover {
+      -webkit-filter: brightness(0.9);
+      filter: brightness(0.9);
+    }
+
+    .quiz h1 {
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .quiz-question-wrapper {
+      width: 100%;
+      max-width: 1120px;
+      overflow: hidden;
+    }
+
+    .quiz-question-wrapper .wrapper {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .question {
+      min-width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      margin: 2rem 0;
+    }
+
+    .question p.pergunta {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      max-width: 750px;
+      text-align: center;
+      opacity: .76;
+    }
+
+    .question .respostas,
+    .question .acessar-agora {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .question .respostas .button-wrapper,
+    .question .acessar-agora .button-wrapper {
+      width: 100%;
+      max-width: 280px;
+      background: -webkit-gradient(linear, left top, right top, from(#0df2d3), to(#0df248));
+      background: linear-gradient(to right, #0df2d3, #0df248);
+      padding: 3px;
+      border-radius: 1rem;
+    }
+
+    .question .respostas button,
+    .question .respostas a,
+    .question .acessar-agora button{
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: .8rem;
+      width: 100%;
+      color: #fff;
+      height: 3rem;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      -webkit-transition: .4s ease-in;
+      transition: .4s ease-in;
+    }
+
+    .question .respostas button:hover:not(.nao),
+    .question .respostas a:hover:not(.nao),
+    .question .acessar-agora button:hover:not(.nao),
+    .question .acessar-agora button:hover:not(.nao) {
+      -webkit-filter: brightness(0.9);
+      filter: brightness(0.9);
+    }
+
+    .question .respostas a,
+    .question .acessar-agora button {
+      width: 280px;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      text-decoration: none;
+      background: -webkit-gradient(linear, left top, right top, from(#0df2d3), to(#0df248));
+      background: linear-gradient(to right, #0df2d3, #0df248);
+    }
+
+    .question .respostas button.nao,
+    .question .acessar-agora button.nao {
+      background: #192e49;
+    }
+
+    .question .respostas button.nao:hover,
+    .question .acessar-agora button.nao:hover {
+      background: -webkit-gradient(linear, left top, right top, from(#0df2d3), to(#0df248));
+      background: linear-gradient(to right, #0df2d3, #0df248);
+    }
+
+    .progresso {
+      margin-top: 2rem;
+      width: 80%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .progresso .voltar-questao {
+      border-radius: 100%;
+      min-width: 4rem;
+      height: 4rem;
+      background: #1e242e;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-transition: .2s;
+      transition: .2s;
+    }
+
+    .progresso .voltar-questao:hover {
+      background: var(--cor-dos-botoes);
+    }
+
+    .progresso .voltar-questao svg {
+      width: 3rem;
+      height: 2rem;
+    }
+
+    .progresso .barra-de-progresso {
+      width: 100%;
+      height: 4rem;
+      background: #1e242e;
+      border-radius: 2rem;
+      padding: 1rem 2rem;
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .progresso .barra-de-progresso .barra {
+      width: 100%;
+      height: .75rem;
+      border-radius: 1rem;
+      background: #2B3444;
+      overflow: hidden;
+    }
+
+    .progresso .barra-de-progresso .barra .background {
+      border-radius: 1rem;
+      width: 0;
+      height: 100%;
+      background: var(--cor-dos-botoes);
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .progresso .barra-de-progresso .circle {
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 1rem;
+      background: #2B3444;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
+
+    .progresso .barra-de-progresso .circle svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .progresso .barra-de-progresso .circle.active {
+      background: var(--cor-dos-botoes);
+    }
+
+    .progresso .barra-de-progresso .circle:nth-child(2) {
+      left: 2rem;
+    }
+
+    .progresso .barra-de-progresso .circle:last-child {
+      right: 2rem;
+    }
+
+    .progresso .barra-de-progresso .circle:nth-child(3) {
+      left: calc(25%);
+    }
+
+    .progresso .barra-de-progresso .circle:nth-child(4) {
+      left: calc(50% - 1rem);
+    }
+
+    .progresso .barra-de-progresso .circle:nth-child(5) {
+      right: calc(25%);
+    }
+
+    @media (max-width: 767px) {
+      .progresso {
+        width: 100%;
+        gap: 1rem;
+      }
+
+      .progresso .barra-de-progresso .circle {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .progresso .barra-de-progresso .circle svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .progresso .barra-de-progresso .circle.active {
+        background: var(--cor-dos-botoes);
+      }
+
+      .progresso .barra-de-progresso .circle:nth-child(2) {
+        left: 2rem;
+      }
+
+      .progresso .barra-de-progresso .circle:last-child {
+        right: 2rem;
+      }
+
+      .progresso .barra-de-progresso .circle:nth-child(3) {
+        left: calc(25% + .5rem);
+      }
+
+      .progresso .barra-de-progresso .circle:nth-child(4) {
+        left: calc(50% - .75rem);
+      }
+
+      .progresso .barra-de-progresso .circle:nth-child(5) {
+        right: calc(25% + .5rem);
+      }
+    }
+
+    @media (max-width: 425px){
+      .quiz h1{
+        margin-bottom: 1rem;
+        font-size: 2rem;
+      }
+
+      .question{
+        margin: 0;
+      }
+
+      .question p.pergunta{
+        font-size: 1.125rem;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .question {
+        padding: 0 .5rem;
+      }
+
+      .quiz .content-wrapper {
+        padding: 4rem 1rem;
+      }
+
+      .quiz h1 {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <section class="quiz">
+    <div class="content-wrapper">
+      <h1>
+        Responda o quiz de 30 segundos e acesse o conteúdo.
+      </h1>
+
+      <div class="quiz-question-wrapper">
+
+        <div class="wrapper">
+
+
+          <div class="question">
+            <p class="pergunta">Você está insatisfeito(a) com o seu peso?</p>
+
+            <div class="respostas">
+              <div class="button-wrapper">
+                <button class="sim" id="perguntaA" onclick="passarQuestao()">Sim</button>
+              </div>
+              <div class="button-wrapper">
+                <button class="nao" id="perguntaA" onclick="passarQuestao()">Não</button>
+              </div>
+            </div>
+          </div>
+          <div class="question">
+            <p class="pergunta">Você sente dificuldade de perder peso?</p>
+
+            <div class="respostas">
+              <div class="button-wrapper">
+                <button class="sim" id="perguntaA" onclick="passarQuestao()">Sim</button>
+              </div>
+              <div class="button-wrapper">
+                <button class="nao" id="perguntaA" onclick="passarQuestao()">Não</button>
+              </div>
+            </div>
+          </div>
+          <div class="question">
+            <p class="pergunta">Você gostaria de perder peso sem deixar de comer o que gosta?</p>
+
+            <div class="respostas">
+              <div class="button-wrapper">
+                <button class="sim" id="perguntaA" onclick="passarQuestao()">Sim</button>
+              </div>
+              <div class="button-wrapper">
+                <button class="nao" id="perguntaA" onclick="passarQuestao()">Não</button>
+              </div>
+            </div>
+          </div>
+          <div class="question">
+            <p class="pergunta">A apresentação a seguir possui um limite de pessoas que podem assistir simultaneamente,
+              você se compromete de assistir esse vídeo até o final?</p>
+
+            <div class="respostas">
+              <div class="button-wrapper">
+                <button class="sim" id="perguntaA" onclick="passarQuestao()">Sim</button>
+              </div>
+              <div class="button-wrapper">
+                <button class="nao" id="perguntaA" onclick="passarQuestao()">Não</button>
+              </div>
+            </div>
+          </div>
+          <div class="question">
+            <p class="pergunta">Muito bem, clique abaixo para ter acesso ao conteudo.</p>
+
+            <div class="acessar-agora">
+              <button class="button-wrapper" onclick="redirect()">Acessar Agora!</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="progresso">
+        <buttos class="voltar-questao" onclick="voltarQuestao()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.83 11L8.41 8.41L7 7L2 12L7 17L8.41 15.59L5.83 13H22V11H5.83Z" fill="#2E3A59" />
+          </svg>
+        </buttos>
+
+        <div class="barra-de-progresso">
+          <div class="barra">
+            <div class="background"></div>
+          </div>
+          <div class="circle active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.8389 6.69459L8.81811 18.7154L3.16125 13.0586L4.57125 11.6486L8.81811 15.8854L19.4289 5.28459L20.8389 6.69459Z"
+                fill="#2E3A59" />
+            </svg>
+          </div>
+          <div class="circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.8389 6.69459L8.81811 18.7154L3.16125 13.0586L4.57125 11.6486L8.81811 15.8854L19.4289 5.28459L20.8389 6.69459Z"
+                fill="#2E3A59" />
+            </svg>
+          </div>
+          <div class="circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.8389 6.69459L8.81811 18.7154L3.16125 13.0586L4.57125 11.6486L8.81811 15.8854L19.4289 5.28459L20.8389 6.69459Z"
+                fill="#2E3A59" />
+            </svg>
+
+          </div>
+          <div class="circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.8389 6.69459L8.81811 18.7154L3.16125 13.0586L4.57125 11.6486L8.81811 15.8854L19.4289 5.28459L20.8389 6.69459Z"
+                fill="#2E3A59" />
+            </svg>
+
+          </div>
+          <div class="circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.8389 6.69459L8.81811 18.7154L3.16125 13.0586L4.57125 11.6486L8.81811 15.8854L19.4289 5.28459L20.8389 6.69459Z"
+                fill="#2E3A59" />
+            </svg>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <span>Copyright 2022</span>
+  </section>
+
+  <script>
+    const $ = (query) => document.querySelector(query);
+    const $$ = (query) => document.querySelectorAll(query);
+    const background = document.querySelector(".barra .background");
+    let percentageCounter = 100;
+
+    function passarQuestao() {
+      const transform = `translateX(-${percentageCounter}%)`;
+
+      $(".wrapper").style.transform = transform;
+      percentageCounter += 100;
+      console.log(percentageCounter);
+      atualizarBarraDeProgresso();
+    }
+
+    function voltarQuestao() {
+      if (percentageCounter <= 100) return
+
+      percentageCounter -= 100;
+      const transform = `translateX(-${percentageCounter - 100}%)`;
+
+      $(".wrapper").style.transform = transform;
+      console.log(percentageCounter);
+
+      atualizarBarraDeProgresso(true);
+    }
+
+    function atualizarBarraDeProgresso(isRemove = false) {
+      if (percentageCounter <= 0) return
+      let width = (percentageCounter - 100) / 4;
+      console.log(width, percentageCounter);
+      $(".barra .background").style.width = `${width}%`;
+
+      if (isRemove) {
+        const actives = $$(".circle.active")
+        const lastActive = actives[actives.length - 1];
+
+        console.log(actives, lastActive);
+
+        lastActive.classList.remove('active')
+      } else {
+        $(".circle:not(.active)").classList.add("active");
+      }
+    }
+  </script>
+  <script>
+        function redirect(){
+      location.href = "https://43nk.short.gy/MWQe7Z"
+    }
+  </script>
+
+<!-- UTM TRACKER -->
+<script>
+let prefix = ["https://43nk.short.gy/4310FU"];
+function getParams() {
+let t = "",
+e = window.top.location.href,
+r = new URL(e);
+if (null != r) {
+let a = r.searchParams.get("utm_source"),
+n = r.searchParams.get("utm_medium"),
+o = r.searchParams.get("utm_campaign"),
+m = r.searchParams.get("utm_term"),
+c = r.searchParams.get("utm_content"); - 1 !== e.indexOf("?") && (t = `&sck=${a}|${n}|${o}|${m}|${c}`), console.log(t)
+}
+return t
+}! function() {
+var t = new URLSearchParams(window.location.search);
+t.toString() && document.querySelectorAll("a").forEach(function(e) {
+for (let r = 0; r < prefix.length; r++) - 1 !== e.href.indexOf(prefix[r]) && (-1 === e.href.indexOf("?") ? e.href += "?" + t.toString() + getParams() : e.href += "&" + t.toString() + getParams())
+})
+}(); </script> <!-- END UTM TRACKER -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBQN47T"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->   
+
+</body>
+</html>
